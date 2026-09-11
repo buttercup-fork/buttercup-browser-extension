@@ -3,6 +3,10 @@
 ## Unreleased
 _Codekunde fork_
 
+ * Indicate entries with no password because they sign in via a third-party account (Google/GitHub/Facebook/etc) - add a custom field named `SSO` in the desktop app (value = provider name, or leave it blank) and the popup shows a badge for it
+ * Tightened the spacing between an entry's name and username in the results list
+ * Reordered the popup's tabs to Entries, OTPs, Vaults, Settings
+
  * ([#474](https://github.com/buttercup/buttercup-browser-extension/issues/474)) Focus the search field when the popup opens
  * ([#473](https://github.com/buttercup/buttercup-browser-extension/issues/473)) Show the vault name on entry results when more than one vault is connected
  * ([#485](https://github.com/buttercup/buttercup-browser-extension/issues/485)) Copy an OTP code to the clipboard from the popover
