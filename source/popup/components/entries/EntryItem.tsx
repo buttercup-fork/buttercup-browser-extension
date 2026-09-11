@@ -11,6 +11,7 @@ import { t } from "../../../shared/i18n/trans.js";
 import { copyTextToClipboard } from "../../services/clipboard.js";
 import { getToaster } from "../../../shared/services/notifications.js";
 import { localisedErrorMessage } from "../../../shared/library/error.js";
+import { capitaliseSSOProvider, getSSOProviderFromProperties } from "../../../shared/library/sso.js";
 
 interface EntryItemProps {
     entry: SearchResult;
@@ -48,11 +49,33 @@ const EntryIcon = styled(SiteIcon)`
     }
 `;
 const Title = styled(Text)`
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.1rem;
 `;
 const VaultName = styled(Tag)`
     margin-top: 0.35rem;
     max-width: 100%;
+    font-size: 10px;
+    line-height: 12px;
+    min-height: 16px;
+    padding: 1px 5px;
+
+    .bp4-icon, .bp4-icon svg {
+        width: 10px !important;
+        height: 10px !important;
+    }
+`;
+const SSOBadge = styled(Tag)`
+    margin-top: 0.35rem;
+    margin-right: 0.35rem;
+    font-size: 10px;
+    line-height: 12px;
+    min-height: 16px;
+    padding: 1px 5px;
+
+    .bp4-icon, .bp4-icon svg {
+        width: 10px !important;
+        height: 10px !important;
+    }
 `;
 const EntryIconBackground = styled.div`
     width: 2.5rem;
@@ -86,6 +109,7 @@ export function EntryItem(props: EntryItemProps) {
         }
         return extractEntryDomain(entry.properties);
     }, [entry, fetchIcons]);
+    const ssoProvider = useMemo(() => getSSOProviderFromProperties(entry.properties), [entry]);
     const handleEntryClick = useCallback(
         (evt: MouseEvent) => {
             evt.preventDefault();
@@ -141,6 +165,19 @@ export function EntryItem(props: EntryItemProps) {
                     <CenteredText ellipsize className={cn(Classes.TEXT_SMALL, Classes.TEXT_MUTED)}>
                         {entry.properties.username} {entry.properties.url && `@ ${entry.properties.url}` || ""}
                     </CenteredText>
+                    {ssoProvider !== null && (
+                        <Tooltip2
+                            content={
+                                ssoProvider
+                                    ? t("popup.entries.sso.tooltip-provider", { provider: capitaliseSSOProvider(ssoProvider) })
+                                    : t("popup.entries.sso.tooltip-generic")
+                            }
+                        >
+                            <SSOBadge icon="log-in" minimal>
+                                {ssoProvider ? capitaliseSSOProvider(ssoProvider) : t("popup.entries.sso.badge-generic")}
+                            </SSOBadge>
+                        </Tooltip2>
+                    )}
                     {vaultName && (
                         <VaultName icon="box" minimal>
                             <Text ellipsize title={vaultName}>{vaultName}</Text>

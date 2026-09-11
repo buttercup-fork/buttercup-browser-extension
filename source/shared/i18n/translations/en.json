@@ -147,6 +147,11 @@
             "search": {
                 "button": "Search entries",
                 "placeholder": "Search..."
+            },
+            "sso": {
+                "badge-generic": "SSO",
+                "tooltip-generic": "Signs in via a third-party account - no password is stored",
+                "tooltip-provider": "Signs in via {{provider}} - no password is stored"
             }
         },
         "no-entries": {
