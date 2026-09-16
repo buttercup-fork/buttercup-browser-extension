@@ -1,7 +1,7 @@
 # Buttercup browser extension changelog
 
-## Unreleased
-_Codekunde fork_
+## v3.3.0
+_2026-09-17 - Codekunde fork - first Codekunde release_
 
  * Indicate entries with no password because they sign in via a third-party account (Google/GitHub/Facebook/etc) - add a custom field named `SSO` in the desktop app (value = provider name, or leave it blank) and the popup shows a badge for it
  * Tightened the spacing between an entry's name and username in the results list, and fixed descenders (e.g. the "g" in a username) being visually clipped by the SSO/vault name tags on the row below
