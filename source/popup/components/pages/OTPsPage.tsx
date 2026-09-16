@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useMemo } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
-import { Button, Intent, NonIdealState, Spinner } from "@blueprintjs/core";
+import { Button, InputGroup, Intent, NonIdealState, Spinner } from "@blueprintjs/core";
 import { VaultSourceStatus } from "buttercup";
 import { t } from "../../../shared/i18n/trans.js";
 import { useDesktopConnectionState, useOTPs, useVaultSources } from "../../hooks/desktop.js";
@@ -17,15 +17,22 @@ import { localisedErrorMessage } from "../../../shared/library/error.js";
 interface OTPsPageProps {
     onConnectClick: () => Promise<void>;
     onReconnectClick: () => Promise<void>;
+    searchTerm: string;
 }
 
-interface OTPsPageControlsProps {}
+interface OTPsPageControlsProps {
+    onSearchTermChange: (term: string) => void;
+    searchTerm: string;
+}
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
+`;
+const Input = styled(InputGroup)`
+    margin-right: 2px !important;
 `;
 const InvalidState = styled(NonIdealState)`
     margin-top: 28px;
@@ -86,6 +93,14 @@ function OTPsPageList(props: OTPsPageProps) {
     );
     const [otps, loadingOTPs] = useOTPs();
     const preparedOTPs = usePreparedOTPs(otps);
+    const searchTerm = props.searchTerm.trim().toLowerCase();
+    const filteredOTPs = useMemo(() => {
+        if (!searchTerm) return preparedOTPs;
+        return preparedOTPs.filter(otp =>
+            (otp.otpTitle ?? "").toLowerCase().includes(searchTerm) ||
+            otp.entryTitle.toLowerCase().includes(searchTerm)
+        );
+    }, [preparedOTPs, searchTerm]);
     const handleOTPClick = useCallback((otp: OTP) => {
         if (popupSource === "page" && formID) {
             sendOTPToTabForInput(formID, otp);
@@ -130,18 +145,48 @@ function OTPsPageList(props: OTPsPageProps) {
                 icon="array-numeric"
             />
         );
+    } else if (filteredOTPs.length <= 0) {
+        return (
+            <InvalidState
+                title={t("popup.otps.no-search-results.title")}
+                description={t("popup.otps.no-search-results.description")}
+                icon="search"
+            />
+        );
     }
     return (
         <OTPItemList
             onOTPClick={handleOTPClick}
-            otps={preparedOTPs}
+            otps={filteredOTPs}
         />
     );
 }
 
 export function OTPsPageControls(props: OTPsPageControlsProps) {
+    const desktopState = useDesktopConnectionState();
+    const searchInputRef = useRef<HTMLInputElement | null>(null);
+    const connected = desktopState === DesktopConnectionState.Connected;
+    useEffect(() => {
+        if (connected && searchInputRef.current) {
+            searchInputRef.current.focus();
+        }
+    }, [connected]);
     return (
         <>
+            <Input
+                disabled={!connected}
+                inputRef={searchInputRef}
+                onChange={evt => props.onSearchTermChange(evt.target.value)}
+                placeholder={t("popup.otps.search.placeholder")}
+                round
+                value={props.searchTerm}
+            />
+            <Button
+                disabled={!connected}
+                icon="search"
+                minimal
+                title={t("popup.otps.search.button")}
+            />
         </>
     );
 }

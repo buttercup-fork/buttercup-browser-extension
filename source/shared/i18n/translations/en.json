@@ -171,6 +171,14 @@
                 "error": "Failed copying OTP code: {{message}}",
                 "success": "OTP copied",
                 "tooltip": "Copy code"
+            },
+            "no-search-results": {
+                "description": "No OTPs match your search",
+                "title": "No matches"
+            },
+            "search": {
+                "button": "Search OTPs",
+                "placeholder": "Search..."
             }
         },
         "tab": {

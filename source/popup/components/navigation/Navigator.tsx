@@ -7,7 +7,7 @@ import { getToaster } from "../../../shared/services/notifications.js";
 import { localisedErrorMessage } from "../../../shared/library/error.js";
 import { t } from "../../../shared/i18n/trans.js";
 import { clearDesktopConnectionAuth, initiateDesktopConnectionRequest } from "../../queries/desktop.js";
-import { OTPsPage } from "../pages/OTPsPage.js";
+import { OTPsPage, OTPsPageControls } from "../pages/OTPsPage.js";
 import { SettingsPage } from "../pages/SettingsPage.js";
 import { AboutPage } from "../pages/AboutPage.js";
 import { PopupPage } from "../../types.js";
@@ -59,6 +59,7 @@ const Container = styled.div`
 
 export function Navigator(props: NavigatorProps) {
     const [entriesSearch, setEntriesSearch] = useState<string>("");
+    const [otpsSearch, setOTPsSearch] = useState<string>("");
     const handleConnectClick = useCallback(async () => {
         try {
             await initiateDesktopConnectionRequest();
@@ -137,6 +138,7 @@ export function Navigator(props: NavigatorProps) {
                                     <OTPsPage
                                         onConnectClick={handleConnectClick}
                                         onReconnectClick={handleReconnectClick}
+                                        searchTerm={otpsSearch}
                                     />
                                 </>
                             )}
@@ -182,6 +184,12 @@ export function Navigator(props: NavigatorProps) {
                 )}
                 {props.activeTab === PopupPage.Vaults && (
                     <VaultsPageControls />
+                )}
+                {props.activeTab === PopupPage.OTPs && (
+                    <OTPsPageControls
+                        onSearchTermChange={setOTPsSearch}
+                        searchTerm={otpsSearch}
+                    />
                 )}
             </Tabs>
         </Container>

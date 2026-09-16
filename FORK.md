@@ -32,8 +32,10 @@ There are currently no Codekunde store listings. Before publishing:
 
 ## Dependency strategy
 
-- **buttercup-core**: consumed from `github:codekunde/buttercup-core#master`
-  (our fork). Pin to a tag/commit before cutting a release.
+- **buttercup-core**: consumed from `github:codekunde/buttercup-core` pinned to
+  commit `a73517c85dc7b21a4fc26fcd55f5aaed902f6075` (our fork's `master` as of
+  2026-09-16 - "Fixes batch 1"). No Codekunde release tag exists yet on that
+  repo; re-pin to a tag once one is cut.
 - **@buttercup/locust**: still consumed from the published npm release, pinned
   to exact `2.3.1`. A preservation mirror lives at
   [codekunde/locust](https://github.com/codekunde/locust). Only switch the
