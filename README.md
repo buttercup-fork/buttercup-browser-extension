@@ -13,13 +13,13 @@ Buttercup credentials manager extension for the browser.
     <img src="https://raw.githubusercontent.com/buttercup/buttercup-browser-extension/master/chrome-extension.jpg" />
 </p>
 
-[![Buttercup](https://cdn.rawgit.com/buttercup-pw/buttercup-assets/6582a033/badge/buttercup-slim.svg)](https://buttercup.pw) ![Tests status](https://github.com/buttercup/buttercup-core/actions/workflows/test.yml/badge.svg) [![Chrome version](https://img.shields.io/chrome-web-store/v/heflipieckodmcppbnembejjmabajjjj)](https://chrome.google.com/webstore/detail/buttercup/heflipieckodmcppbnembejjmabajjjj?hl=en-GB) [![Chrome users](https://img.shields.io/chrome-web-store/d/heflipieckodmcppbnembejjmabajjjj.svg?label=Chrome%20users)](https://chrome.google.com/webstore/detail/buttercup/heflipieckodmcppbnembejjmabajjjj?hl=en-GB) [![Firefox version](https://img.shields.io/amo/v/buttercup-pw)](https://addons.mozilla.org/en-US/firefox/addon/buttercup-pw/) [![Firefox users](https://img.shields.io/amo/users/buttercup-pw.svg?color=38c543&label=Firefox%20users)](https://addons.mozilla.org/en-US/firefox/addon/buttercup-pw/) [![Chat securely on Keybase](https://img.shields.io/badge/keybase-bcup-blueviolet)](https://keybase.io/team/bcup)
+[![Buttercup](https://cdn.rawgit.com/buttercup-pw/buttercup-assets/6582a033/badge/buttercup-slim.svg)](https://buttercup.pw) [![Tests status](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml/badge.svg)](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml)
 
 ---
 
-⚠️ **Project Closure** ⚠️
+⚠️ **Project Closure (upstream)** ⚠️
 
-The Buttercup project has come to an end, and these repositories are in transition to becoming public archives. No public-facing resources will be removed, wherever possible. Please do not create issues or PRs - they will unfortunately be ignored. Discussion can be found [here](https://github.com/buttercup/buttercup-desktop/discussions/1395), and explanation [here](https://gist.github.com/perry-mitchell/43ebfcec4d874b77a704be1d4f2262e6).
+The original Buttercup project has come to an end, and its repositories are archived. This notice is kept here for context since this fork's code and history originate from that project; it does **not** apply to this repository, which Codekunde actively maintains (see "About this fork" below). Please do not create issues or PRs on the archived **upstream** repositories - they will unfortunately be ignored. Discussion can be found [here](https://github.com/buttercup/buttercup-desktop/discussions/1395), and explanation [here](https://gist.github.com/perry-mitchell/43ebfcec4d874b77a704be1d4f2262e6).
 
 ---
 
@@ -29,7 +29,7 @@ This is an independent fork of the original [Buttercup browser extension](https:
 
 This fork is not affiliated with, endorsed by, or supported by the original Buttercup maintainers. It has not yet undergone an independent security audit (this line will be removed once/if one happens).
 
-Releases, version tags and (eventual) store listings originate from Codekunde and are not continuations of the upstream project's releases. See [FORK.md](FORK.md) for maintenance notes: extension identity, the self-generated Firefox add-on ID, store-listing status and dependency strategy. The store badges above still point at the archived upstream listings.
+Releases, version tags and (eventual) store listings originate from Codekunde and are not continuations of the upstream project's releases. See [FORK.md](FORK.md) for maintenance notes: extension identity, the self-generated Firefox add-on ID, store-listing status and dependency strategy. **There are no Codekunde Chrome/Edge/Firefox store listings yet** — this extension is currently installed as an unpacked/development build only (see [Development](#development) below).
 
 ---
 
@@ -46,11 +46,9 @@ Buttercup for Browsers auto-detects some login forms and login inputs, allowing 
 
 ### Supported browsers
 
-[Chrome](https://chrome.google.com/webstore/detail/buttercup/heflipieckodmcppbnembejjmabajjjj?hl=en-GB), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/buttercup-pw/), [Edge](https://www.microsoft.com/en-us/edge) (version 79+) and [Brave](https://chrome.google.com/webstore/detail/buttercup/heflipieckodmcppbnembejjmabajjjj) are supported.
+Chrome, Firefox, Edge (version 79+) and Brave (Chromium-based, loads the same build as Chrome) are supported. There is no published store listing for this fork yet on any of them — see [Development](#development) below for building and loading the extension yourself.
 
-_Some browsers, such as **Brave** for example, will be able to install Buttercup via the Google Chrome web store._
-
-Other browsers will be supported in order of request/popularity. Issues created for unsupported browsers, or for browsers not on the roadmap, may be closed without warning.
+Other browsers will be supported in order of request/popularity.
 
 **Opera** is not supported due to their incredibly slow and unreliable release process. We will not be adding support for Opera.
 
@@ -80,16 +78,20 @@ You can **block** Buttercup from detecting forms and inputs by applying the attr
 
 Development of features and bugfixes is supported in the following environment:
 
- * NodeJS version 20 (latest minor version)
- * Linux / Mac
+ * NodeJS version 20.10+ (20 / 22 / 24 all work)
+ * Windows, Linux or Mac
  * Tested in at least Chrome / Firefox
- 
+
 To set up your development environment:
  * Clone this repo
  * Ensure API keys are available (Google Drive)
  * Execute `npm install` inside the project directory
  * Run `npm run dev:chrome` or similar
  * Load the unpacked `dist` folder in your browser addons
+
+The `release:*` scripts (`npm run release`) still assume a POSIX shell (`zip`,
+`mv`) — run those from Git Bash / WSL on Windows. The `build:*` / `dev:*`
+scripts work natively on any platform.
 
 #### Chrome
 
@@ -103,7 +105,7 @@ Run the following to develop the extension:
 
 Run the following to develop the extension:
 
- * Execute `npm run dev:firefox` to build and watch the project (to build production code, execute `npm run release`)
+ * Execute `npm run dev:firefox` to build and watch the project (to build production code, execute `npm run build:firefox`)
 
 #### Releasing
 

@@ -4,8 +4,11 @@
 _Codekunde fork_
 
  * Indicate entries with no password because they sign in via a third-party account (Google/GitHub/Facebook/etc) - add a custom field named `SSO` in the desktop app (value = provider name, or leave it blank) and the popup shows a badge for it
- * Tightened the spacing between an entry's name and username in the results list
+ * Tightened the spacing between an entry's name and username in the results list, and fixed descenders (e.g. the "g" in a username) being visually clipped by the SSO/vault name tags on the row below
  * Reordered the popup's tabs to Entries, OTPs, Vaults, Settings
+ * Added a search field to the OTPs tab, matching the one on Entries
+ * Pinned `buttercup-core` to a specific commit instead of floating on `master`
+ * Dropped the paused 2-column entry-row redesign (kebab menu, launch-URL action) - the copy-username/copy-password buttons already shipped stay
 
  * ([#474](https://github.com/buttercup/buttercup-browser-extension/issues/474)) Focus the search field when the popup opens
  * ([#473](https://github.com/buttercup/buttercup-browser-extension/issues/473)) Show the vault name on entry results when more than one vault is connected

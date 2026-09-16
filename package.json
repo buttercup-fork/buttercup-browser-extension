@@ -70,7 +70,7 @@
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "babel-loader": "^9.1.3",
-    "buttercup": "github:codekunde/buttercup-core#master",
+    "buttercup": "github:codekunde/buttercup-core#06d0fe268bb70a7d06594a619ae49db8bd4f1c3a",
     "classnames": "^2.2.6",
     "concurrently": "^8.2.2",
     "copy-webpack-plugin": "^11.0.0",

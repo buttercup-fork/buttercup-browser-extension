@@ -25,6 +25,8 @@ interface EntryItemProps {
 const CenteredText = styled(Text)`
     display: flex;
     align-items: center;
+    line-height: 1.4;
+    padding-bottom: 0.15rem;
 `;
 const Container = styled.div`
     border-radius: 3px;
@@ -52,7 +54,7 @@ const Title = styled(Text)`
     margin-bottom: 0.1rem;
 `;
 const VaultName = styled(Tag)`
-    margin-top: 0.35rem;
+    margin-top: 0.15rem;
     max-width: 100%;
     font-size: 10px;
     line-height: 12px;
@@ -65,7 +67,7 @@ const VaultName = styled(Tag)`
     }
 `;
 const SSOBadge = styled(Tag)`
-    margin-top: 0.35rem;
+    margin-top: 0.15rem;
     margin-right: 0.35rem;
     font-size: 10px;
     line-height: 12px;
