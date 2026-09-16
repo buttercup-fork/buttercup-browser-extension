@@ -64,3 +64,7 @@ By using Buttercup's applications or services, you acknowledge that Buttercup st
 ## Our responsibility to you, the user
 
 We provide Buttercup as free-to-use software - we take every reasonable precaution to ensure that the vaults are encrypted in a manner that is secure by industry standards. We must ensure that only encrypted data leaves the user's device when storing vaults. We must ensure that only the bare minimum information is shared with 3rd party services to allow Buttercup to integrate with them.
+
+## Contact
+
+Questions about this privacy policy, or this fork of the extension generally, can be sent to **support@codekunde.net**.

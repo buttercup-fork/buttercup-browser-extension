@@ -31,6 +31,8 @@ This fork is not affiliated with, endorsed by, or supported by the original Butt
 
 Releases, version tags and (eventual) store listings originate from Codekunde and are not continuations of the upstream project's releases. See [FORK.md](FORK.md) for maintenance notes: extension identity, the self-generated Firefox add-on ID, store-listing status and dependency strategy. **There are no Codekunde Chrome/Edge/Firefox store listings yet** — this extension is currently installed as an unpacked/development build only (see [Development](#development) below).
 
+Questions or support requests for this fork: **support@codekunde.net**.
+
 ---
 
 ## About

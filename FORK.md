@@ -29,6 +29,9 @@ There are currently no Codekunde store listings. Before publishing:
 - **Firefox AMO**: new listing under the fork's `gecko.id`.
 - Update the README badges (still pointing at upstream store items) once real
   listings exist.
+- **Support/contact email**: `support@codekunde.net` (decided 2026-09-17) —
+  use this for the developer account registration and as the public
+  support-contact address on each store listing.
 
 ## Dependency strategy
 
