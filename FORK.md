@@ -6,6 +6,25 @@ Codekunde maintains it going forward: all releases, version tags and store
 listings originate from Codekunde and are **not** continuations of the upstream
 project's releases.
 
+## Privacy design principle
+
+**No vault metadata — not just credentials, but entry domains, titles, or any
+other per-entry data — is ever routed through a third-party service, even for
+purely cosmetic features.** Decided 2026-09-17 while fixing entry favicons:
+the original approach (`icon.buttercup.pw`, an upstream favicon-lookup proxy;
+also considered a public API like Google's `s2/favicons`, and a
+Codekunde-hosted replacement) would each leak the list of services a user has
+stored credentials for to whoever runs that lookup. `PRIVACY_POLICY.md`
+commits to "as little information as possible being handled by the
+application" — that promise only means something if it also holds for small,
+easy-to-justify conveniences, not just the big obvious cases like vault
+storage. The planned fix (see `TODO.md`) instead fetches each favicon directly from the
+entry's own domain (a party the entry already has a relationship with), and
+falls back to a generic placeholder rather than a proxy when a site doesn't
+serve one. Apply the same default to any future feature that could touch
+per-entry data: prefer "fetch from the thing itself" or "do without" over
+routing through any intermediary, self-hosted or not.
+
 ## Extension identity
 
 | Field | Value | Where |
