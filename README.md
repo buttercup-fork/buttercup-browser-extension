@@ -10,7 +10,7 @@
 Buttercup credentials manager extension for the browser.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/buttercup/buttercup-browser-extension/master/chrome-extension.jpg" />
+    <img src="images/b-b-e-entry.png" alt="Codekunde's Buttercup browser extension - entries list" width="400" />
 </p>
 
 [![Buttercup](https://cdn.rawgit.com/buttercup-pw/buttercup-assets/6582a033/badge/buttercup-slim.svg)](https://buttercup.pw) [![Tests status](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml/badge.svg)](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml)
@@ -40,7 +40,7 @@ This browser extension allows users to interface with password archives authored
 
 The extension makes secured requests to the desktop application for information within its unlocked vaults, and makes those credentials available within the browser. It is also able to save new logins from the browser extension as they're recognised. Besides a username and password, the extension can also enter OTP codes when required.
 
-<img src="https://raw.githubusercontent.com/buttercup/buttercup-browser-extension/master/chrome-extension-2.jpg" />
+<img src="images/b-b-e-otp.png" alt="Codekunde's Buttercup browser extension - OTP list" width="400" />
 
 ### Forms & Logins
 
