@@ -64,7 +64,7 @@
     "@blueprintjs/select": "^4.9.24",
     "@buttercup/channel-queue": "^1.4.0",
     "@buttercup/locust": "2.3.1",
-    "@buttercup/ui": "^6.2.2",
+    "@buttercup/ui": "github:codekunde/ui#1e49687c3e0bf5f91a05a0e19fd1506e84aad027",
     "@types/chrome": "^0.0.251",
     "@types/ms": "^0.7.34",
     "@types/react": "^17.0.38",
