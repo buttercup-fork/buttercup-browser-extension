@@ -9,9 +9,7 @@
 # Buttercup Browser Extension
 Buttercup credentials manager extension for the browser.
 
-<p align="center">
-    <img src="images/b-b-e-entry.png" alt="Codekunde's Buttercup browser extension - entries list" width="400" />
-</p>
+<img src="images/b-b-e-entry.png" alt="Codekunde's Buttercup browser extension - entries list" width="400" />
 
 [![Buttercup](https://cdn.rawgit.com/buttercup-pw/buttercup-assets/6582a033/badge/buttercup-slim.svg)](https://buttercup.pw) [![Tests status](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml/badge.svg)](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml)
 
