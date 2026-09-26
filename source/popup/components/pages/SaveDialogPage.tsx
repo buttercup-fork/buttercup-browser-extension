@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { EntryType } from "buttercup";
-import { SiteIcon } from "@buttercup/ui";
+import { SiteIcon } from "../../../shared/components/SiteIcon.js";
 import { Button, Card, H5, Intent, NonIdealState, Spinner } from "@blueprintjs/core";
 import { LaunchContext } from "../contexts/LaunchContext.js";
 import { t } from "../../../shared/i18n/trans.js";

@@ -1,7 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { createRequire } from "node:module";
 import webpack from "webpack";
 import ResolveTypeScriptPlugin from "resolve-typescript-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
@@ -16,10 +15,8 @@ import manifestV3 from "./resources/manifest.v3.json" with { type: "json" };
 const { BannerPlugin, DefinePlugin } = webpack;
 const { BROWSER } = process.env;
 const V3_BROWSERS = ["chrome", "edge"];
-const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const DIST = path.resolve(__dirname, "dist");
-const ICONS_PATH = path.join(path.dirname(require.resolve("@buttercup/ui")), "icons");
 
 // copy-webpack-plugin's glob matcher requires forward slashes, even on Windows
 const toGlob = (p) => p.split(path.sep).join("/");
@@ -178,11 +175,6 @@ export default [
                         from: toGlob(path.join(__dirname, "./resources", "buttercup-*.png")),
                         to: path.join(DIST, "manifest-res"),
                         context: path.join(__dirname, "./resources")
-                    },
-                    {
-                        from: toGlob(path.join(ICONS_PATH, "/*")),
-                        to: path.join(DIST, "scripts/icons"),
-                        context: ICONS_PATH
                     }
                 ]
             })

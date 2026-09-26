@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { Card, Elevation } from "@blueprintjs/core";
-import { SiteIcon } from "@buttercup/ui";
+import { SiteIcon } from "../../../../shared/components/SiteIcon.js";
 import { EntryType } from "buttercup";
 import { useCapturedCredentials } from "../../../hooks/credentials.js";
 import { extractDomain } from "../../../../shared/library/domain.js";
