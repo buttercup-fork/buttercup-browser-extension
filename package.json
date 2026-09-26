@@ -50,6 +50,9 @@
   ],
   "author": "Perry Mitchell <perry@perrymitchell.net>",
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "bugs": {
     "url": "https://github.com/ByteWerk-Labs/buttercup-browser-extension/issues"
   },
