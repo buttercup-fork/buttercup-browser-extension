@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import cn from "classnames";
 import { Classes, Intent, Spinner, Text } from "@blueprintjs/core";
-import { SiteIcon } from "@buttercup/ui";
+import { SiteIcon } from "../../../shared/components/SiteIcon.js";
 import { extractDomain } from "../../../shared/library/domain.js";
 import { PreparedOTP } from "../../hooks/otp.js";
 

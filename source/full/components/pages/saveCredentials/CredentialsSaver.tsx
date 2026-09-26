@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useMemo, useState } from "react";
 import { ITreeNode, NonIdealState, Tree, TreeNodeInfo } from "@blueprintjs/core";
 import { EntryPropertyType, VaultFacade, VaultSourceID, fieldsToProperties } from "buttercup";
-import { SiteIcon } from "@buttercup/ui";
+import { SiteIcon } from "../../../../shared/components/SiteIcon.js";
 import styled from "styled-components";
 import { t } from "../../../../shared/i18n/trans.js";
 import { useAllVaultsContents } from "../../../hooks/vaultContents.js";

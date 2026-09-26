@@ -3,7 +3,7 @@ import styled from "styled-components";
 import cn from "classnames";
 import { Button, ButtonGroup, Classes, Text } from "@blueprintjs/core";
 import { SearchResult, VaultSourceStatus } from "buttercup";
-import { SiteIcon } from "@buttercup/ui";
+import { SiteIcon } from "../../../shared/components/SiteIcon.js";
 import { LaunchContext } from "../contexts/LaunchContext.js";
 import { extractEntryDomain } from "../../../shared/library/domain.js";
 import { Tooltip2 } from "@blueprintjs/popover2";
