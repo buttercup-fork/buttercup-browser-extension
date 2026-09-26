@@ -1,5 +1,12 @@
 # Buttercup browser extension changelog
 
+## Unreleased (codekunde fork)
+
+ * **Breaking** (building from source): requires NodeJS 22 or newer; CI builds on NodeJS 22
+ * **Security**:
+   * Core updated to the CodeKunde fork's current master: dependency and security updates, and HTTP requests through the built-in `fetch`
+   * `npm audit`: 56 findings (9 critical, 27 high) down to 2 moderate. In-range updates for everything, plus `web-ext` 7 → 10 and `copy-webpack-plugin` 11 → 14. The 2 left are in React Router (`react-router` and `react-router-dom`): an open redirect via backslashes in `<Link>`/`useNavigate`, and one in server-side rendering, which the extension doesn't use. Both need React Router 7 and so React 18+ (the extension is on React 17)
+
 ## v3.2.0
 _2024-04-09_
 
