@@ -1,6 +1,6 @@
-// Entry icon: the site's favicon via Buttercup's icon service, falling back to
-// the entry type's icon. Same component as buttercup-desktop's vault SiteIcon
-// (both originally from @buttercup/ui).
+// Entry icon: the site's favicon, falling back to the entry type's icon. Same
+// component as buttercup-desktop's vault SiteIcon (both originally from
+// @buttercup/ui).
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { DEFAULT_ENTRY_TYPE, EntryType } from "buttercup";
@@ -13,7 +13,7 @@ import ICON_CREDITCARD from "../../../resources/entry-types/credit-card.png";
 const DYNAMIC_STATE_FAILED = 2;
 const DYNAMIC_STATE_LOADED = 1;
 const DYNAMIC_STATE_LOADING = 0;
-const ICON_LOOKUP = "https://icon.buttercup.pw/icon/";
+const HOSTNAME = /^[a-z0-9-]+(\.[a-z0-9-]+)*$/i;
 const ICON_TYPES = {
     [EntryType.Login]: ICON_LOGIN,
     [EntryType.Website]: ICON_WEBSITE,
@@ -22,6 +22,13 @@ const ICON_TYPES = {
     [EntryType.CreditCard]: ICON_CREDITCARD
 };
 const NOOP = () => {};
+
+// Fetch the favicon straight from the entry's own site: no icon service, so
+// no third party ever sees which sites a vault holds logins for. Null for
+// anything that isn't a plain host name.
+function getFaviconURL(domain: string | null): string | null {
+    return domain && HOSTNAME.test(domain) ? `https://${domain}/favicon.ico` : null;
+}
 
 const FallbackIcon = styled.img<{ dynamicLoading: boolean }>`
     opacity: ${(props) => (props.dynamicLoading ? "0.5" : "1.0")};
@@ -58,14 +65,15 @@ export function SiteIcon(props) {
         [imgRef.current]
     );
     useEffect(() => {
-        if (!domain) {
+        const faviconURL = getFaviconURL(domain);
+        if (!faviconURL) {
             setDynamicState(DYNAMIC_STATE_FAILED);
             return NOOP;
         }
         if (!imgRef.current) return NOOP;
         imgRef.current.addEventListener("error", onImgError);
         imgRef.current.addEventListener("load", onImgLoad);
-        imgRef.current.setAttribute("src", `${ICON_LOOKUP}${encodeURIComponent(domain)}`);
+        imgRef.current.setAttribute("src", faviconURL);
     }, [imgRef.current]);
     return (
         <IconContainer className={className}>
