@@ -126,12 +126,15 @@
             "click": {
                 "no-url-available": "No URL available for this entry",
                 "open-error": "Could not open page for entry: {{message}}",
+                "open-tooltip": "Open {{url}}",
                 "recent-set-error": "Failed recording recent entry: {{message}}"
             },
             "info": {
                 "copy-error": "Failed copying value: {{message}}",
                 "copy-success": "Copied value to clipboard: {{property}}",
-                "copy-tooltip": "Copy to clipoard",
+                "copy-tooltip": "Copy to clipboard",
+                "open-error": "Could not open the page: {{message}}",
+                "open-tooltip": "Open in a new tab",
                 "tooltip": "Show entry properties"
             },
             "otp": {

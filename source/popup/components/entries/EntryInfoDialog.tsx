@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import { Button, Classes, Dialog, DialogBody, InputGroup, Intent } from "@blueprintjs/core";
+import { Button, ButtonGroup, Classes, Dialog, DialogBody, InputGroup, Intent } from "@blueprintjs/core";
 import { SearchResult } from "buttercup";
 import cn from "classnames";
 import styled from "styled-components";
@@ -7,6 +7,8 @@ import { t } from "../../../shared/i18n/trans.js";
 import { copyTextToClipboard } from "../../services/clipboard.js";
 import { getToaster } from "../../../shared/services/notifications.js";
 import { localisedErrorMessage } from "../../../shared/library/error.js";
+import { createNewTab } from "../../../shared/library/extension.js";
+import { getOpenableURL } from "../../../shared/library/url.js";
 
 interface EntryInfoDialogProps {
     entry: SearchResult | null;
@@ -17,6 +19,7 @@ interface EntryProperty {
     key: string;
     sensitive: boolean;
     title: string;
+    url: string | null;
     value: string;
 }
 
@@ -54,6 +57,18 @@ export function EntryInfoDialog(props: EntryInfoDialogProps) {
             });
         }
     }, []);
+    const handleOpenClick = useCallback(async (url: string | null) => {
+        if (!url) return;
+        try {
+            await createNewTab(url);
+        } catch (err) {
+            getToaster().show({
+                intent: Intent.DANGER,
+                message: t("popup.entries.info.open-error", { message: localisedErrorMessage(err) }),
+                timeout: 10000
+            });
+        }
+    }, []);
     return (
         <InfoDialog
             icon="info-sign"
@@ -74,12 +89,20 @@ export function EntryInfoDialog(props: EntryInfoDialogProps) {
                                         value={property.value}
                                         readOnly
                                         rightElement={
-                                            <Button
-                                                icon="clipboard"
-                                                minimal
-                                                onClick={() => handleCopyClick(property.title, property.value)}
-                                                title={t("popup.entries.info.copy-tooltip")}
-                                            />
+                                            <ButtonGroup minimal>
+                                                {property.url && (
+                                                    <Button
+                                                        icon="share"
+                                                        onClick={() => handleOpenClick(property.url)}
+                                                        title={t("popup.entries.info.open-tooltip")}
+                                                    />
+                                                )}
+                                                <Button
+                                                    icon="clipboard"
+                                                    onClick={() => handleCopyClick(property.title, property.value)}
+                                                    title={t("popup.entries.info.copy-tooltip")}
+                                                />
+                                            </ButtonGroup>
                                         }
                                     />
                                 </td>
@@ -101,6 +124,7 @@ function orderProperties(properties: Record<string, string>): Array<EntryPropert
             key: "username",
             sensitive: false,
             title: "Username",
+            url: null,
             value: properties["username"]
         });
         delete working["username"];
@@ -110,6 +134,7 @@ function orderProperties(properties: Record<string, string>): Array<EntryPropert
             key: "password",
             sensitive: true,
             title: "Password",
+            url: null,
             value: properties["password"]
         });
         delete working["password"];
@@ -119,6 +144,7 @@ function orderProperties(properties: Record<string, string>): Array<EntryPropert
             key: prop,
             sensitive: false,
             title: prop,
+            url: getOpenableURL(prop, working[prop]),
             value: working[prop]
         });
     }
