@@ -126,12 +126,15 @@
             "click": {
                 "no-url-available": "Geen URL beschikbaar voor dit item",
                 "open-error": "Kan pagina niet openen voor item: {{message}}",
+                "open-tooltip": "{{url}} openen",
                 "recent-set-error": "Onlangs gebruikte items niet geregistreerd: {{message}}"
             },
             "info": {
                 "copy-error": "Waarde kopieren mislukt: {{message}}",
                 "copy-success": "Waarde gekopieerd naar klembord: {{property}}",
                 "copy-tooltip": "Kopieer naar klembord",
+                "open-error": "Kon de pagina niet openen: {{message}}",
+                "open-tooltip": "Openen in een nieuw tabblad",
                 "tooltip": "Toon item eigenschappen"
             },
             "otp": {

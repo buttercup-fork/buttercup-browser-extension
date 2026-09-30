@@ -107,7 +107,13 @@ export function EntryItem(props: EntryItemProps) {
                         type={entry.entryType}
                     />
                 </EntryIconBackground>
-                <DetailRow>
+                <DetailRow
+                    title={
+                        popupSource === "popup" && entry.properties.url
+                            ? t("popup.entries.click.open-tooltip", { url: entry.properties.url })
+                            : undefined
+                    }
+                >
                     <Title title={entry.properties.title}>
                         <Text ellipsize>{entry.properties.title}</Text>
                     </Title>
