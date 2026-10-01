@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { Button, InputGroup, Intent, NonIdealState, Spinner } from "@blueprintjs/core";
 import { SearchResult, VaultSourceStatus } from "buttercup";
@@ -91,6 +91,15 @@ function EntriesPageList(props: EntriesPageProps) {
         [sources]
     );
     const searchedEntries = useSearchedEntries(props.searchTerm);
+    const sourceNames = useMemo<Record<string, string> | undefined>(() => {
+        // Only worth showing which vault an entry belongs to when more than
+        // one vault is connected (buttercup-browser-extension#473)
+        if (sources.length <= 1) return undefined;
+        return sources.reduce((output, source) => {
+            output[source.id] = source.name;
+            return output;
+        }, {} as Record<string, string>);
+    }, [sources]);
     const { formID, source: popupSource, url } = useContext(LaunchContext);
     const [selectedEntryInfo, setSelectedEntryInfo] = useState<SearchResult | null>(null);
     const urlEntries = useEntriesForURL(url);
@@ -105,7 +114,7 @@ function EntriesPageList(props: EntriesPageProps) {
                         getToaster().show({
                             intent: Intent.PRIMARY,
                             message: t("popup.entries.click.no-url-available"),
-                            timeout: 3000
+                            timeout: 2000
                         });
                     }
                 })
@@ -114,7 +123,7 @@ function EntriesPageList(props: EntriesPageProps) {
                     getToaster().show({
                         intent: Intent.DANGER,
                         message: t("popup.entries.click.open-error", { message: localisedErrorMessage(err) }),
-                        timeout: 10000
+                        timeout: 5000
                     });
                 });
         }
@@ -123,7 +132,7 @@ function EntriesPageList(props: EntriesPageProps) {
             getToaster().show({
                 intent: Intent.DANGER,
                 message: t("popup.entries.click.recent-set-error", { message: localisedErrorMessage(err) }),
-                timeout: 10000
+                timeout: 5000
             });
         });
     }, [popupSource]);
@@ -148,6 +157,7 @@ function EntriesPageList(props: EntriesPageProps) {
             ) || searchedEntries.length > 0 && (
                 <EntryItemList
                     entries={searchedEntries}
+                    sourceNames={sourceNames}
                     onEntryAutoClick={handleEntryAutoLoginClick}
                     onEntryClick={handleEntryBodyClick}
                     onEntryInfoClick={handleEntryInfoClick}
@@ -164,6 +174,7 @@ function EntriesPageList(props: EntriesPageProps) {
                         "URL Entries": urlEntries,
                         "Recents": recentEntries
                     }}
+                    sourceNames={sourceNames}
                     onEntryAutoClick={handleEntryAutoLoginClick}
                     onEntryClick={handleEntryBodyClick}
                     onEntryInfoClick={handleEntryInfoClick}
@@ -176,10 +187,20 @@ function EntriesPageList(props: EntriesPageProps) {
 
 export function EntriesPageControls(props: EntriesPageControlsProps) {
     const desktopState = useDesktopConnectionState();
+    const searchInputRef = useRef<HTMLInputElement | null>(null);
+    const connected = desktopState === DesktopConnectionState.Connected;
+    // Focus the search field as soon as it becomes usable, so the popup is
+    // immediately keyboard-ready (buttercup-browser-extension#474)
+    useEffect(() => {
+        if (connected && searchInputRef.current) {
+            searchInputRef.current.focus();
+        }
+    }, [connected]);
     return (
         <>
             <Input
-                disabled={desktopState !== DesktopConnectionState.Connected}
+                disabled={!connected}
+                inputRef={searchInputRef}
                 onChange={evt => props.onSearchTermChange(evt.target.value)}
                 placeholder={t("popup.entries.search.placeholder")}
                 round

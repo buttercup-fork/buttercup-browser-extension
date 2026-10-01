@@ -11,6 +11,13 @@ import { InputButtonType } from "../types.js";
 const BUTTON_BACKGROUND_IMAGE = getExtensionURL(BUTTON_BACKGROUND_IMAGE_RES);
 const INPUT_BACKGROUND_IMAGE = getExtensionURL(INPUT_BACKGROUND_IMAGE_RES);
 
+// How many times to back off and retry when something is already sitting
+// where our button would attach, before giving up on this input entirely
+// (buttercup-browser-extension#226 - injected button blocking a site's own
+// button, eg. JIRA's inline controls). A low ceiling avoids retrying forever
+// on inputs that are permanently occupied.
+const MAX_OCCUPIED_AREA_RETRIES = 10;
+
 export function attachLaunchButton(
     input: HTMLInputElement,
     buttonType: InputButtonType,
@@ -19,6 +26,7 @@ export function attachLaunchButton(
     if (input.dataset.bcup === "attached" || itemIsIgnored(input)) {
         return;
     }
+    let occupiedAreaRetries = 0;
     const tryToAttach = () => {
         const bounds = input.getBoundingClientRect();
         const { width } = bounds;
@@ -29,6 +37,20 @@ export function attachLaunchButton(
             setTimeout(tryToAttach, 250);
             return;
         }
+        if (buttonType === InputButtonType.LargeButton && buttonAreaIsOccupied(input, bounds)) {
+            // Something else is already sitting where our button would go.
+            // Attaching would fully cover it (it isn't just a visual
+            // overlap - our button also captures pointer events), so back
+            // off instead of blocking it. Retry a few times in case this
+            // was a transient render (eg. the site's own button not yet
+            // mounted), then leave this input without a launch button
+            // rather than cover whatever is already there.
+            if (occupiedAreaRetries < MAX_OCCUPIED_AREA_RETRIES) {
+                occupiedAreaRetries += 1;
+                setTimeout(tryToAttach, 250);
+            }
+            return;
+        }
         if (buttonType === InputButtonType.LargeButton) {
             renderButtonStyle(input, () => onClick(input), tryToAttach, bounds);
         } else if (buttonType === InputButtonType.InnerIcon) {
@@ -36,6 +58,31 @@ export function attachLaunchButton(
         }
     };
     tryToAttach();
+}
+
+function buttonAreaIsOccupied(input: HTMLInputElement, bounds: DOMRect): boolean {
+    if (typeof document.elementsFromPoint !== "function") {
+        return false;
+    }
+    // Approximates renderButtonStyle's own placement: the button sits at
+    // the input's trailing edge, sized relative to its height.
+    const buttonWidth = 0.8 * bounds.height;
+    const checkX = bounds.right - buttonWidth / 2;
+    const checkY = bounds.top + bounds.height / 2;
+    const elements = document.elementsFromPoint(checkX, checkY);
+    return elements.some((el) => {
+        if (el === input || el === document.documentElement || el === document.body) {
+            return false;
+        }
+        if (!(el instanceof HTMLElement) || el.closest("[data-bcup]")) {
+            return false;
+        }
+        try {
+            return el.matches("button, a, [role='button'], input, select, textarea, [onclick]");
+        } catch (err) {
+            return false;
+        }
+    });
 }
 
 function renderInternalStyle(input: HTMLInputElement, onClick: () => void, inputBounds: DOMRect) {
@@ -130,11 +177,17 @@ function renderButtonStyle(input: HTMLInputElement, onClick: () => void, reattac
     };
     // @ts-ignore
     mount(input.offsetParent, button);
-    onElementDismount(button, () => {
-        reattachCB();
-    });
     const reprocessButton = () => {
         try {
+            if (!input.offsetParent) {
+                // The input (or an ancestor) is currently hidden - e.g. an
+                // inactive tab within a modal. offsetLeft/offsetTop read 0
+                // in this state, which would snap the button to the top of
+                // its own (still-visible) mount container. Leave the button
+                // exactly where it is instead; the next tick after the
+                // input is visible again will restore its correct position.
+                return;
+            }
             left = calculateLeft();
             top = input.offsetTop;
             setStyle(button, {
@@ -144,10 +197,27 @@ function renderButtonStyle(input: HTMLInputElement, onClick: () => void, reattac
         } catch (err) {
             clearInterval(reprocessInterval);
             removeOnBodyWidthResize();
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
         }
     };
+    // Browsers throttle setInterval heavily in background tabs (down to
+    // roughly once a minute), so a layout shift that happens while this tab
+    // is hidden only gets corrected once the throttled timer next fires -
+    // visible as the button "jumping" once you switch back
+    // (buttercup-browser-extension#499). Reposition immediately instead of
+    // waiting for that.
+    const handleVisibilityChange = () => {
+        if (document.visibilityState === "visible") {
+            reprocessButton();
+        }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     const removeOnBodyWidthResize = onBodyWidthResize(reprocessButton);
     const reprocessInterval = setInterval(reprocessButton, 1250);
+    onElementDismount(button, () => {
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+        reattachCB();
+    });
     reprocessButton();
 }
 

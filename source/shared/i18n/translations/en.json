@@ -74,8 +74,10 @@
     },
     "error": {
         "code": {
+            "desktop-connection-forbidden": "The desktop app rejected this connection (403 Forbidden). Try \"Reset Application Data\" in Settings, then reconnect. If that doesn't help, check that the desktop app and extension are both up to date.",
             "desktop-connection-not-authorised": "Desktop connection has not been authorised",
-            "desktop-request-failed": "Desktop request failed"
+            "desktop-request-failed": "Desktop request failed",
+            "desktop-unreachable": "Could not reach the Buttercup desktop app. Make sure it's running, that browser access is enabled in its settings, and that no firewall is blocking local connections."
         },
         "desktop": {
             "connection-check-failed": "Failed checking desktop connection: {{message}}",
@@ -97,9 +99,9 @@
     "notifications": {
         "page": {
             "welcome-v3": {
-                "line-1": "You're now using the new version of the <strong>Buttercup browser addon</strong>. It uses the latest core libraries to manage your password vaults and integrate with web pages and login forms. Version 3 is more light-weight and accurate when compared to previous versions, and it supports far more login forms as well.",
+                "line-1": "You're now using the new version of the <strong>Buttercup browser addon (Codekunde fork)</strong>. It uses the latest core libraries to manage your password vaults and integrate with web pages and login forms. Version 3 is more light-weight and accurate when compared to previous versions, and it supports far more login forms as well.",
                 "line-2": "It should be noted that <strong>version 3 of the extension requires the Buttercup desktop application version 2.26 or later</strong> be installed <i>and</i> running, at least in the background. This browser addon uses an encrypted connection with the desktop application to transfer vault credentials during login and saving. This addon cannot function without the desktop application.",
-                "line-3": "The latest version of the Buttercup desktop application should be downloaded from <a href='https://buttercup.pw/'>Buttercup.pw</a>",
+                "line-3": "The latest version of the Buttercup desktop application should be downloaded from <a href='https://buttercup.codekunde.net/'>buttercup.codekunde.net</a>",
                 "line-4": "We hope that you enjoy using this new version!",
                 "title": "Welcome to V3"
             }
@@ -129,9 +131,13 @@
                 "open-tooltip": "Open {{url}}",
                 "recent-set-error": "Failed recording recent entry: {{message}}"
             },
+            "copy": {
+                "password-tooltip": "Copy password",
+                "username-tooltip": "Copy username"
+            },
             "info": {
                 "copy-error": "Failed copying value: {{message}}",
-                "copy-success": "Copied value to clipboard: {{property}}",
+                "copy-success": "{{property}} copied",
                 "copy-tooltip": "Copy to clipboard",
                 "open-error": "Could not open the page: {{message}}",
                 "open-tooltip": "Open in a new tab",
@@ -144,6 +150,11 @@
             "search": {
                 "button": "Search entries",
                 "placeholder": "Search..."
+            },
+            "sso": {
+                "badge-generic": "SSO",
+                "tooltip-generic": "Signs in via a third-party account - no password is stored",
+                "tooltip-provider": "Signs in via {{provider}} - no password is stored"
             }
         },
         "no-entries": {
@@ -158,6 +169,19 @@
             "click": {
                 "no-url-available": "No URL available for this OTP",
                 "open-error": "Could not open page for OTP: {{message}}"
+            },
+            "copy": {
+                "error": "Failed copying OTP code: {{message}}",
+                "success": "OTP copied",
+                "tooltip": "Copy code"
+            },
+            "no-search-results": {
+                "description": "No OTPs match your search",
+                "title": "No matches"
+            },
+            "search": {
+                "button": "Search OTPs",
+                "placeholder": "Search..."
             }
         },
         "tab": {
