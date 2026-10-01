@@ -17,6 +17,7 @@
  * Popup, OTPs tab: OTPs for the current site come first, under a "This site" heading, with everything else under "Other OTPs" (no headings when there's only one group), like the Entries tab already does
  * Popup: clicking an entry's icon opens its details (tooltip "Show entry properties"), replacing the separate "i" button, which frees room on the row. Clicking the rest of the row still opens the site
  * Popup: entries that have an OTP get a "Copy OTP code" button on their row, next to copy username and password. Entries without an OTP are unchanged
+ * **Bugfix** ([#304](https://github.com/buttercup/buttercup-browser-extension/issues/304)): no launch button (or its input styling) inside a rich-text editor's own interface (WordPress Gutenberg's writing area and popovers, the Classic Editor's TinyMCE toolbar). Adding it there could crash the editor or get undone when the editor redraws. Login and password fields elsewhere, including the rest of wp-admin, are unchanged
 
 ## v3.3.0
 _2026-09-17 - Codekunde fork - first Codekunde release_
