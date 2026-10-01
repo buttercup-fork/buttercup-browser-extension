@@ -98,12 +98,13 @@
     },
     "notifications": {
         "page": {
-            "welcome-v3": {
-                "line-1": "You're now using the new version of the <strong>Buttercup browser addon (Codekunde fork)</strong>. It uses the latest core libraries to manage your password vaults and integrate with web pages and login forms. Version 3 is more light-weight and accurate when compared to previous versions, and it supports far more login forms as well.",
-                "line-2": "It should be noted that <strong>version 3 of the extension requires the Buttercup desktop application version 2.26 or later</strong> be installed <i>and</i> running, at least in the background. This browser addon uses an encrypted connection with the desktop application to transfer vault credentials during login and saving. This addon cannot function without the desktop application.",
-                "line-3": "The latest version of the Buttercup desktop application should be downloaded from <a href='https://buttercup.codekunde.net/'>buttercup.codekunde.net</a>",
-                "line-4": "We hope that you enjoy using this new version!",
-                "title": "Welcome to V3"
+            "welcome": {
+                "line-1": "Thanks for installing the <strong>Buttercup browser extension, Codekunde edition</strong>. It's a maintained fork of the open-source Buttercup extension, which its original authors no longer develop. It fills in your logins and saves new ones, using the vaults in your Buttercup desktop app.",
+                "line-2": "<strong>The extension needs the Buttercup desktop app</strong>, installed and running, at least in the background. Your vaults stay in the desktop app: the extension talks to it over an encrypted connection on your own computer, and never keeps a copy of your vaults. Get the latest desktop app from <a href='https://buttercup.codekunde.net/'>buttercup.codekunde.net</a>.",
+                "line-3": "To connect: in the desktop app, choose <strong>Connection → Enable browser access</strong>. Then click <strong>Connect</strong> in this extension's popup, and enter the code the desktop app shows.",
+                "line-4": "Questions or problems? Email <a href='mailto:support@codekunde.net'>support@codekunde.net</a>.",
+                "signature": "The Codekunde Team",
+                "title": "Welcome to Buttercup (Codekunde)"
             }
         },
         "title": "Notifications"
