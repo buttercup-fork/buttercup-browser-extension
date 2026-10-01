@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import { Divider } from "@blueprintjs/core";
+import { Divider, H4 } from "@blueprintjs/core";
+import { t } from "../../../shared/i18n/trans.js";
 import { OTPItem } from "./OTPItem.js";
 import { PreparedOTP } from "../../hooks/otp.js";
 import { OTP } from "../../types.js";
@@ -8,6 +9,8 @@ import { OTP } from "../../types.js";
 interface OTPItemListProps {
     onOTPClick: (otp: OTP) => void;
     otps: Array<PreparedOTP>;
+    /** Number of leading OTPs that belong to the current site */
+    siteCount?: number;
 }
 
 const ButtonRow = styled.div`
@@ -33,14 +36,18 @@ const ScrollList = styled.div`
 export function OTPItemList(props: OTPItemListProps) {
     const {
         onOTPClick,
-        otps
+        otps,
+        siteCount = 0
     } = props;
-    
+    const showSections = siteCount > 0 && siteCount < otps.length;
+
     return (
         <>
             <ScrollList>
-                {otps.map((otp) => (
+                {showSections && <H4>{t("popup.otps.sections.site")}</H4>}
+                {otps.map((otp, index) => (
                     <Fragment key={`${otp.entryID}:${otp.otpURL}`}>
+                        {showSections && index === siteCount && <H4>{t("popup.otps.sections.other")}</H4>}
                         <OTPItem
                             otp={otp}
                             onClick={() => onOTPClick(otp)}
