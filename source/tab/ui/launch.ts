@@ -1,5 +1,5 @@
 import { el, mount, setStyle } from "redom";
-import { itemIsIgnored } from "../library/disable.js";
+import { isWithinKnownEditor, itemIsIgnored } from "../library/disable.js";
 import { CLEAR_STYLES, findBestZIndexInContainer } from "../library/styles.js";
 import { onElementDismount } from "../library/dismount.js";
 import { onBodyWidthResize } from "../library/resize.js";
@@ -23,7 +23,7 @@ export function attachLaunchButton(
     buttonType: InputButtonType,
     onClick: (input: HTMLInputElement) => void
 ): void {
-    if (input.dataset.bcup === "attached" || itemIsIgnored(input)) {
+    if (input.dataset.bcup === "attached" || itemIsIgnored(input) || isWithinKnownEditor(input)) {
         return;
     }
     let occupiedAreaRetries = 0;
