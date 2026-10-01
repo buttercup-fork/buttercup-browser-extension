@@ -18,10 +18,13 @@
  * Popup: clicking an entry's icon opens its details (tooltip "Show entry properties"), replacing the separate "i" button, which frees room on the row. Clicking the rest of the row still opens the site
  * Popup: entries that have an OTP get a "Copy OTP code" button on their row, next to copy username and password. Entries without an OTP are unchanged
  * **Bugfix** ([#304](https://github.com/buttercup/buttercup-browser-extension/issues/304)): no launch button (or its input styling) inside a rich-text editor's own interface (WordPress Gutenberg's writing area and popovers, the Classic Editor's TinyMCE toolbar). Adding it there could crash the editor or get undone when the editor redraws. Login and password fields elsewhere, including the rest of wp-admin, are unchanged
+ * README and FORK.md: the Firefox add-on is published on addons.mozilla.org (linked), Chrome and Edge listings still to come. The README's badges are local SVGs instead of dead rawgit links, and the screenshots are new (mock data, current popup)
 
 ## v3.3.0
 _2026-09-17 - Codekunde fork - first Codekunde release_
 
+ * ([#226](https://github.com/buttercup/buttercup-browser-extension/issues/226)) The injected launch button no longer covers an existing button on the page (partial fix: the false-positive field detection behind it is still open)
+ * Firefox: declared `data_collection_permissions: none` in the manifest, now required by addons.mozilla.org for new listings
  * Indicate entries with no password because they sign in via a third-party account (Google/GitHub/Facebook/etc) - add a custom field named `SSO` in the desktop app (value = provider name, or leave it blank) and the popup shows a badge for it
  * Tightened the spacing between an entry's name and username in the results list, and fixed descenders (e.g. the "g" in a username) being visually clipped by the SSO/vault name tags on the row below
  * Reordered the popup's tabs to Entries, OTPs, Vaults, Settings

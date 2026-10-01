@@ -36,18 +36,19 @@ routing through any intermediary, self-hosted or not.
 The Firefox ID was generated fresh for this fork. There is **no upstream
 Firefox/AMO listing, signing key, or add-on ID inherited from Buttercup** — the
 original `{10e7d273-…}` ID belonged to the upstream project and must never be
-reused here. If/when this fork is submitted to AMO it will be a brand-new
-listing under the ID above.
+reused here. The AMO listing is a brand-new listing under the ID above.
 
-## Store listings — not yet claimed
+## Store listings
 
-There are currently no Codekunde store listings. Before publishing:
-
-- **Chrome Web Store / Edge Add-ons**: new listings required. The upstream
-  Chrome item (`heflipieckodmcppbnembejjmabajjjj`) is not ours.
-- **Firefox AMO**: new listing under the fork's `gecko.id`.
-- Update the README badges (still pointing at upstream store items) once real
-  listings exist.
+- **Firefox AMO**: **published** (submitted 2026-09-17, approved by 2026-09-20)
+  at https://addons.mozilla.org/en-US/firefox/addon/buttercup-codekunde/ under
+  the fork's `gecko.id`. Manifest declares
+  `data_collection_permissions: {required: ["none"]}`.
+- **Chrome Web Store / Edge Add-ons**: not yet submitted. New listings
+  required. The upstream Chrome item (`heflipieckodmcppbnembejjmabajjjj`) is
+  not ours.
+- Update the README badges (still pointing at upstream store items) once the
+  remaining listings exist.
 - **Support/contact email**: `support@codekunde.net` (decided 2026-09-17) —
   use this for the developer account registration and as the public
   support-contact address on each store listing.
