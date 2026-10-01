@@ -64,3 +64,9 @@ By using Buttercup's applications or services, you acknowledge that Buttercup st
 ## Our responsibility to you, the user
 
 We provide Buttercup as free-to-use software - we take every reasonable precaution to ensure that the vaults are encrypted in a manner that is secure by industry standards. We must ensure that only encrypted data leaves the user's device when storing vaults. We must ensure that only the bare minimum information is shared with 3rd party services to allow Buttercup to integrate with them.
+
+This fork holds itself to a stricter default than "minimum": no per-entry data - not just passwords, but entry domains, titles, or usernames - is routed through any third-party lookup service, even for small conveniences like displaying a site's icon. Where such a feature needs data from a site, it is fetched directly from that site (the one the entry is already for), never through an intermediary that would otherwise learn which services you have saved credentials for.
+
+## Contact
+
+Questions about this privacy policy, or this fork of the extension generally, can be sent to **support@codekunde.net**.

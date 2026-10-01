@@ -31,7 +31,7 @@ import {
 import { getConfig, updateConfigValue } from "./config.js";
 import { disableLoginsOnDomain, getDisabledDomains, removeDisabledFlagForDomain } from "./disabledDomains.js";
 import { log } from "./log.js";
-import { resetInitialisation } from "./init.js";
+import { resetInitialisation, waitForInitialisation } from "./init.js";
 import { getRecents, trackRecentUsage } from "./recents.js";
 import { openEntryPageInNewTab } from "./entry.js";
 import { getAutoLoginForTab, registerAutoLogin } from "./autoLogin.js";
@@ -52,6 +52,11 @@ async function handleMessage(
     sender: chrome.runtime.MessageSender,
     sendResponse: (resp: BackgroundResponse) => void
 ) {
+    // MV3 service workers are woken on demand and can receive a message
+    // (e.g. from a popup opening) before background initialise() has
+    // finished - notably before config.ts's getConfig() has a value to
+    // return. Wait for it rather than letting every handler race it.
+    await waitForInitialisation();
     switch (msg.type) {
         case BackgroundMessageType.AuthenticateDesktopConnection: {
             const { code } = msg;
@@ -76,7 +81,13 @@ async function handleMessage(
         }
         case BackgroundMessageType.ClearDesktopAuthentication: {
             log("clear desktop authentication");
-            await removeLocalValue(LocalStorageItem.APIClientID);
+            // Only forget the desktop's authorisation (APIServerPublicKey) -
+            // NOT the client ID. This is used by the popup's "Reconnect" flow
+            // (shown on a connection error) to re-request a fresh auth code
+            // while keeping this browser's own identity. Removing the client
+            // ID here left it unset until the next full Settings reset,
+            // so the very next authenticateBrowserAccess() call threw
+            // "No API client ID set" (buttercup-browser-extension#495).
             await removeLocalValue(LocalStorageItem.APIServerPublicKey);
             sendResponse({});
             break;
@@ -132,6 +143,13 @@ async function handleMessage(
             } catch (err) {
                 throw new Layerr(err, "Failed disabling save prompt for domain");
             }
+            // Also stop prompting for this specific credentials entry, same as
+            // ClearSavedCredentialsPrompt does. Without this, a captured login
+            // that survives across a multi-domain redirect (SSO/federated
+            // login flows) re-triggers the save prompt on the next hop, since
+            // the new domain isn't in the disabled list yet the credentials
+            // are still marked promptSave=true.
+            stopPromptForID(credentialsID);
             await sendTabsMessage({
                 type: TabEventType.CloseSaveDialog
             });

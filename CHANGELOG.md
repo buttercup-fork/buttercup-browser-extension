@@ -11,6 +11,38 @@
  * Popup: the entry info dialog has an **open in a new tab** button next to copy for each web address (any `http(s)` value, or an address without `https://` in a field named like a URL), so every URL of an entry can be opened, not just the first login URL. Hovering an entry in the toolbar popup shows the site that a click opens. Other schemes (`javascript:`, `file:`...) are never opened. Also fixed the "Copy to clipoard" tooltip typo (upstream buttercup/ui#72)
  * **Bugfix**: entry icons showed only the generic placeholder again. The 2026-09-17 fix (icons fetched from each entry's own site) lived in our `@buttercup/ui` fork, and was lost when `SiteIcon` moved into the extension with upstream's lookup through `icon.buttercup.pw`, which is offline. `SiteIcon` loads `https://<site>/favicon.ico` straight from the entry's own site again: no icon service, so no third party learns which sites a vault holds logins for. Sites without a favicon at that address keep the placeholder
  * **Bugfix** (Chrome, Edge): the extension couldn't be loaded ("Could not load file 'tab.js' for content script. It isn't UTF-8 encoded"). The bundles contained the Unicode noncharacters U+FFFF and U+EFFFF (in the XML name-character ranges of `fast-xml-parser`, pulled in through core's WebDAV client), which Chrome refuses in content scripts. The minifier now writes all non-ASCII characters as `\u` escapes (`format.ascii_only`), so the bundles are plain ASCII. Firefox wasn't affected
+ * Merged the v3.3.0 release (the fork's identity and Firefox add-on ID, OTP search and copy, SSO badge, #473/#474/#485/#486/#488/#495/#499) into `master`; it had only been on its release branch. Dutch translations added for the strings v3.3.0 brought in (OTP search and copy, SSO badge, copy buttons, the desktop connection errors)
+
+## v3.3.0
+_2026-09-17 - Codekunde fork - first Codekunde release_
+
+ * Indicate entries with no password because they sign in via a third-party account (Google/GitHub/Facebook/etc) - add a custom field named `SSO` in the desktop app (value = provider name, or leave it blank) and the popup shows a badge for it
+ * Tightened the spacing between an entry's name and username in the results list, and fixed descenders (e.g. the "g" in a username) being visually clipped by the SSO/vault name tags on the row below
+ * Reordered the popup's tabs to Entries, OTPs, Vaults, Settings
+ * Added a search field to the OTPs tab, matching the one on Entries
+ * Pinned `buttercup-core` to a specific commit instead of floating on `master`
+ * Dropped the paused 2-column entry-row redesign (kebab menu, launch-URL action) - the copy-username/copy-password buttons already shipped stay
+
+ * ([#474](https://github.com/buttercup/buttercup-browser-extension/issues/474)) Focus the search field when the popup opens
+ * ([#473](https://github.com/buttercup/buttercup-browser-extension/issues/473)) Show the vault name on entry results when more than one vault is connected
+ * ([#485](https://github.com/buttercup/buttercup-browser-extension/issues/485)) Copy an OTP code to the clipboard from the popover
+ * Copy username / copy password buttons on each entry result row (popup mode)
+ * Shortened the copy-to-clipboard toast to "{{property}} copied" (was "Copied value to clipboard: {{property}}")
+ * **Bugfix**:
+   * "Save Login" prompt reappearing after clicking Disable on a multi-domain/SSO login (e.g. federated Microsoft logins) — the credential's save-prompt flag was never cleared on Disable, only on Close
+   * ([#482](https://github.com/buttercup/buttercup-browser-extension/issues/482)) Autofilled fields not registering as filled on some SPA login forms (e.g. Microsoft/Okta-style "Next" button staying disabled) — added a keyboard-event nudge after fill, partial fix
+   * ([#486](https://github.com/buttercup/buttercup-browser-extension/issues/486)) Popup crash when Chrome's Site access is set to "On click" — background message handling could run before the service worker finished initialising, and vault-source lookups could crash on an unexpected empty response
+ * Removed a build-time Sass deprecation warning (`sass-loader` bumped to 14.2.1 with the modern compiler API; no output change)
+ * **Bugfix**:
+   * ([#495](https://github.com/buttercup/buttercup-browser-extension/issues/495)) "No API client ID set" after using the popup's Reconnect flow - it was clearing the client ID without ever regenerating it
+   * ([#488](https://github.com/buttercup/buttercup-browser-extension/issues/488)) Desktop connection failures now show an actionable message (can't reach the app / connection rejected / other) instead of a raw "Desktop request failed: 403 Forbidden"
+ * Shortened toast durations: success/confirmation toasts 3-4s -> 2s, error toasts 10s -> 5s; shortened the OTP-copied toast text to "OTP copied"
+ * Toasts sized to their message instead of Blueprint's 300px minimum
+ * **Bugfix**:
+   * ([#499](https://github.com/buttercup/buttercup-browser-extension/issues/499)) Injected launch button "jumping" after switching browser tabs and back - repositions immediately on tab visibility change instead of waiting for a throttled background-tab timer; also no longer snaps to the top of the page when its input is temporarily hidden by an in-page tab/panel switch (e.g. a site's own tabbed form)
+   * Autofill popup hanging open for a second or two while filling - it now closes immediately and fills/nudges each field in the background, instead of waiting for simulated typing to finish first
+ * Build fixes: Node 22+ compatibility, Windows-compatible `build`/`dev` scripts, LF normalisation
+ * Fork rebrand: extension name, Firefox add-on ID, `@buttercup/locust` pinned
 
 ## v3.2.0
 _2024-04-09_

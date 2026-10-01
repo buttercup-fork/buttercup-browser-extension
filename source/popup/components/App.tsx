@@ -107,8 +107,8 @@ function ToolbarApp() {
                 tabs={[
                     PopupPage.About,
                     PopupPage.Entries,
-                    PopupPage.Vaults,
                     PopupPage.OTPs,
+                    PopupPage.Vaults,
                     PopupPage.Settings
                 ]}
             />
