@@ -74,8 +74,10 @@
     },
     "error": {
         "code": {
+            "desktop-connection-forbidden": "De desktop-app heeft deze verbinding geweigerd (403 Forbidden). Probeer \"Reset toepassinggegevens\" in Instellingen en maak daarna opnieuw verbinding. Helpt dat niet, controleer dan of de desktop-app en de extensie allebei up-to-date zijn.",
             "desktop-connection-not-authorised": "Desktop verbinding is niet geautoriseerd",
-            "desktop-request-failed": "Desktop verzoek mislukt"
+            "desktop-request-failed": "Desktop verzoek mislukt",
+            "desktop-unreachable": "Kan de Buttercup desktop-app niet bereiken. Controleer of de app draait, of browsertoegang aanstaat in de instellingen, en of geen firewall lokale verbindingen blokkeert."
         },
         "desktop": {
             "connection-check-failed": "Controleren desktop verbinding mislukt: {{message}}",
@@ -129,9 +131,13 @@
                 "open-tooltip": "{{url}} openen",
                 "recent-set-error": "Onlangs gebruikte items niet geregistreerd: {{message}}"
             },
+            "copy": {
+                "password-tooltip": "Kopieer wachtwoord",
+                "username-tooltip": "Kopieer gebruikersnaam"
+            },
             "info": {
                 "copy-error": "Waarde kopieren mislukt: {{message}}",
-                "copy-success": "Waarde gekopieerd naar klembord: {{property}}",
+                "copy-success": "{{property}} gekopieerd",
                 "copy-tooltip": "Kopieer naar klembord",
                 "open-error": "Kon de pagina niet openen: {{message}}",
                 "open-tooltip": "Openen in een nieuw tabblad",
@@ -144,6 +150,11 @@
             "search": {
                 "button": "Zoek items",
                 "placeholder": "Zoeken..."
+            },
+            "sso": {
+                "badge-generic": "SSO",
+                "tooltip-generic": "Logt in via een account van een derde partij - er is geen wachtwoord opgeslagen",
+                "tooltip-provider": "Logt in via {{provider}} - er is geen wachtwoord opgeslagen"
             }
         },
         "no-entries": {
@@ -158,6 +169,19 @@
             "click": {
                 "no-url-available": "Geen URL beschikbaar voor dit OTP",
                 "open-error": "Kan pagina niet openen voor OTP: {{message}}"
+            },
+            "copy": {
+                "error": "OTP-code kopieren mislukt: {{message}}",
+                "success": "OTP gekopieerd",
+                "tooltip": "Kopieer code"
+            },
+            "no-search-results": {
+                "description": "Geen OTPs gevonden voor je zoekopdracht",
+                "title": "Geen resultaten"
+            },
+            "search": {
+                "button": "Zoek OTPs",
+                "placeholder": "Zoeken..."
             }
         },
         "tab": {
