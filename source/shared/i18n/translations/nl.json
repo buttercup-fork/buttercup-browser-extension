@@ -98,12 +98,13 @@
     },
     "notifications": {
         "page": {
-            "welcome-v3": {
-                "line-1": "Je gebruikt nu de nieuwe versie van de <strong>Buttercup-browserextensie (Codekunde fork)</strong>. Het maakt gebruik van de nieuwste kernbibliotheken om jouw wachtwoordkluizen te beheren en te integreren met webpagina's en inlogformulieren. Versie 3 is lichter en nauwkeuriger in vergelijking met eerdere versies, en ondersteunt ook veel meer inlogformulieren.",
-                "line-2": "Het moet worden opgemerkt dat <strong>versie 3 de Buttercup desktoptoepassing vereist</strong> om geïnstalleerd <i>en</i> actief te zijn, op zijn minst op de achtergrond. Deze browserextensie gebruikt een versleutelde verbinding met de desktoptoepassing om kluisreferenties over te dragen tijdens het inloggen en opslaan. Deze extensie kan niet functioneren zonder de desktoptoepassing.Opgemerkt moet worden dat <strong>versie 3 van de extensie vereist dat de Buttercup desktop-applicatie versie 2.26 of hoger</strong> geïnstalleerd is <i>en</i>, tenminste op de achtergrond. Deze browser-add-on gebruikt een gecodeerde verbinding met de desktopapplicatie om kluisreferenties over te dragen tijdens het inloggen en opslaan. Deze add-on kan niet functioneren zonder de desktopapplicatie.",
-                "line-3": "De nieuwste versie van de Buttercup-desktopapp moet worden gedownload van <a href='https://buttercup.codekunde.net/'>buttercup.codekunde.net</a>",
-                "line-4": "Wij hopen dat je deze nieuwe versie met veel plezier zal gebruiken!",
-                "title": "Welkom bij V3"
+            "welcome": {
+                "line-1": "Bedankt voor het installeren van de <strong>Buttercup-browserextensie, Codekunde-editie</strong>. Het is een onderhouden fork van de open-source Buttercup-extensie, die de oorspronkelijke makers niet meer ontwikkelen. De extensie vult je inloggegevens in en slaat nieuwe op, met de kluizen in je Buttercup desktop-app.",
+                "line-2": "<strong>De extensie heeft de Buttercup desktop-app nodig</strong>, geïnstalleerd en actief, minstens op de achtergrond. Je kluizen blijven in de desktop-app: de extensie praat ermee via een versleutelde verbinding op je eigen computer en bewaart zelf nooit een kopie van je kluizen. Download de nieuwste desktop-app van <a href='https://buttercup.codekunde.net/'>buttercup.codekunde.net</a>.",
+                "line-3": "Verbinden: kies in de desktop-app <strong>Verbinding → Activeer browsertoegang</strong>. Klik daarna op <strong>Verbinden</strong> in de pop-up van deze extensie en voer de code in die de desktop-app toont.",
+                "line-4": "Vragen of problemen? Mail naar <a href='mailto:support@codekunde.net'>support@codekunde.net</a>.",
+                "signature": "Het Codekunde-team",
+                "title": "Welkom bij Buttercup (Codekunde)"
             }
         },
         "title": "Meldingen"
