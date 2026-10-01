@@ -45,6 +45,18 @@ function getBaseConfig() {
     return {
         devtool: false,
 
+        optimization: {
+            minimizeOptions: {
+                javascript: {
+                    compress: { passes: 2 },
+                    // Escape non-ASCII as \u: fast-xml-parser's name-character ranges contain
+                    // Unicode noncharacters (U+FFFF, U+EFFFF), and Chrome refuses to load a
+                    // content script containing them ("It isn't UTF-8 encoded")
+                    format: { ascii_only: true }
+                }
+            }
+        },
+
         module: {
             rules: [
                 {
