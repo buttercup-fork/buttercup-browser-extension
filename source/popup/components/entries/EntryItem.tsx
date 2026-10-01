@@ -9,6 +9,7 @@ import { extractEntryDomain } from "../../../shared/library/domain.js";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { t } from "../../../shared/i18n/trans.js";
 import { copyTextToClipboard } from "../../services/clipboard.js";
+import { PreparedOTP } from "../../hooks/otp.js";
 import { getToaster } from "../../../shared/services/notifications.js";
 import { localisedErrorMessage } from "../../../shared/library/error.js";
 import { capitaliseSSOProvider, getSSOProviderFromProperties } from "../../../shared/library/sso.js";
@@ -16,6 +17,7 @@ import { capitaliseSSOProvider, getSSOProviderFromProperties } from "../../../sh
 interface EntryItemProps {
     entry: SearchResult;
     fetchIcons: boolean;
+    otp?: PreparedOTP;
     vaultName?: string | null;
     onAutoClick: () => void;
     onClick: () => void;
@@ -99,6 +101,7 @@ export function EntryItem(props: EntryItemProps) {
     const {
         entry,
         fetchIcons,
+        otp,
         vaultName,
         onAutoClick,
         onClick,
@@ -223,6 +226,17 @@ export function EntryItem(props: EntryItemProps) {
                                     icon="key"
                                     minimal
                                     onClick={handleCopyClick("Password", entry.properties.password)}
+                                />
+                            </Tooltip2>
+                        )}
+                        {otp && !otp.errored && (
+                            <Tooltip2
+                                content={t("popup.entries.copy.otp-tooltip")}
+                            >
+                                <Button
+                                    icon="array-numeric"
+                                    minimal
+                                    onClick={handleCopyClick("OTP", otp.digits)}
                                 />
                             </Tooltip2>
                         )}

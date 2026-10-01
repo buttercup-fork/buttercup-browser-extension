@@ -133,6 +133,7 @@
                 "recent-set-error": "Failed recording recent entry: {{message}}"
             },
             "copy": {
+                "otp-tooltip": "Copy OTP code",
                 "password-tooltip": "Copy password",
                 "username-tooltip": "Copy username"
             },

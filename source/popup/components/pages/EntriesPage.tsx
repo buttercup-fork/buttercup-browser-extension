@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { Button, InputGroup, Intent, NonIdealState, Spinner } from "@blueprintjs/core";
 import { SearchResult, VaultSourceStatus } from "buttercup";
 import { t } from "../../../shared/i18n/trans.js";
-import { useDesktopConnectionState, useEntriesForURL, useRecentEntries, useSearchedEntries, useVaultSources } from "../../hooks/desktop.js";
+import { useDesktopConnectionState, useEntriesForURL, useOTPs, useRecentEntries, useSearchedEntries, useVaultSources } from "../../hooks/desktop.js";
+import { PreparedOTP, otpEntryKey, usePreparedOTPs } from "../../hooks/otp.js";
 import { EntryItemList } from "../entries/EntryItemList.js";
 import { LaunchContext } from "../contexts/LaunchContext.js";
 import { sendEntryResultToTabForInput } from "../../services/tab.js";
@@ -104,6 +105,17 @@ function EntriesPageList(props: EntriesPageProps) {
     const [selectedEntryInfo, setSelectedEntryInfo] = useState<SearchResult | null>(null);
     const urlEntries = useEntriesForURL(url);
     const recentEntries = useRecentEntries();
+    const [rawOTPs] = useOTPs();
+    const preparedOTPs = usePreparedOTPs(rawOTPs);
+    const otpsByEntry = useMemo(() => {
+        const output: Record<string, PreparedOTP> = {};
+        for (const otp of preparedOTPs) {
+            const key = otpEntryKey(otp.sourceID, otp.entryID);
+            // An entry with several OTPs shows the first one
+            if (!output[key]) output[key] = otp;
+        }
+        return output;
+    }, [preparedOTPs]);
     const handleEntryClick = useCallback((entry: SearchResult, autoLogin: boolean) => {
         if (popupSource === "page" && formID) {
             sendEntryResultToTabForInput(formID, entry);
@@ -157,6 +169,7 @@ function EntriesPageList(props: EntriesPageProps) {
             ) || searchedEntries.length > 0 && (
                 <EntryItemList
                     entries={searchedEntries}
+                    otpsByEntry={otpsByEntry}
                     sourceNames={sourceNames}
                     onEntryAutoClick={handleEntryAutoLoginClick}
                     onEntryClick={handleEntryBodyClick}
@@ -174,6 +187,7 @@ function EntriesPageList(props: EntriesPageProps) {
                         "URL Entries": urlEntries,
                         "Recents": recentEntries
                     }}
+                    otpsByEntry={otpsByEntry}
                     sourceNames={sourceNames}
                     onEntryAutoClick={handleEntryAutoLoginClick}
                     onEntryClick={handleEntryBodyClick}
