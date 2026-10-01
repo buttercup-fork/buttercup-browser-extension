@@ -5,9 +5,11 @@ import { Divider, H4} from "@blueprintjs/core";
 import { EntryItem } from "./EntryItem.js";
 import { useConfig } from "../../../shared/hooks/config.js";
 import { t } from "../../../shared/i18n/trans.js";
+import { PreparedOTP, otpEntryKey } from "../../hooks/otp.js";
 
 interface EntryItemListProps {
     entries: Array<SearchResult> | Record<string, Array<SearchResult>>;
+    otpsByEntry?: Record<string, PreparedOTP>;
     sourceNames?: Record<string, string>;
     onEntryAutoClick: (entry: SearchResult) => void;
     onEntryClick: (entry: SearchResult) => void;
@@ -27,7 +29,7 @@ const ScrollList = styled.div`
 `;
 
 export function EntryItemList(props: EntryItemListProps) {
-    const { entries, sourceNames, onEntryAutoClick, onEntryClick, onEntryInfoClick } = props;
+    const { entries, otpsByEntry, sourceNames, onEntryAutoClick, onEntryClick, onEntryInfoClick } = props;
     const [config] = useConfig();
     if (!config) return null;
     return (
@@ -39,6 +41,7 @@ export function EntryItemList(props: EntryItemListProps) {
                             <EntryItem
                                 entry={entry}
                                 fetchIcons={config.entryIcons}
+                                otp={otpsByEntry?.[otpEntryKey(entry.sourceID, entry.id)]}
                                 vaultName={vaultNameForEntry(entry, sourceNames)}
                                 onAutoClick={() => onEntryAutoClick(entry)}
                                 onClick={() => onEntryClick(entry)}
@@ -60,6 +63,7 @@ export function EntryItemList(props: EntryItemListProps) {
                                             <EntryItem
                                                 entry={entry}
                                                 fetchIcons={config.entryIcons}
+                                                otp={otpsByEntry?.[otpEntryKey(entry.sourceID, entry.id)]}
                                                 vaultName={vaultNameForEntry(entry, sourceNames)}
                                                 onAutoClick={() => onEntryAutoClick(entry)}
                                                 onClick={() => onEntryClick(entry)}

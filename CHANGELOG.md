@@ -16,6 +16,7 @@
  * Merged the v3.3.0 release (the fork's identity and Firefox add-on ID, OTP search and copy, SSO badge, #473/#474/#485/#486/#488/#495/#499) into `master`; it had only been on its release branch. Dutch translations added for the strings v3.3.0 brought in (OTP search and copy, SSO badge, copy buttons, the desktop connection errors)
  * Popup, OTPs tab: OTPs for the current site come first, under a "This site" heading, with everything else under "Other OTPs" (no headings when there's only one group), like the Entries tab already does
  * Popup: clicking an entry's icon opens its details (tooltip "Show entry properties"), replacing the separate "i" button, which frees room on the row. Clicking the rest of the row still opens the site
+ * Popup: entries that have an OTP get a "Copy OTP code" button on their row, next to copy username and password. Entries without an OTP are unchanged
 
 ## v3.3.0
 _2026-09-17 - Codekunde fork - first Codekunde release_

@@ -133,6 +133,7 @@
                 "recent-set-error": "Onlangs gebruikte items niet geregistreerd: {{message}}"
             },
             "copy": {
+                "otp-tooltip": "Kopieer OTP-code",
                 "password-tooltip": "Kopieer wachtwoord",
                 "username-tooltip": "Kopieer gebruikersnaam"
             },

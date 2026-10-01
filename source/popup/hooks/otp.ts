@@ -12,6 +12,10 @@ export interface PreparedOTP extends OTP {
     remaining: number;
 }
 
+export function otpEntryKey(sourceID: string | undefined, entryID: string): string {
+    return `${sourceID ?? ""}:${entryID}`;
+}
+
 function getPeriodTimeLeft(period: number): number {
     return period - (Math.floor(Date.now() / 1000) % period);
 }
