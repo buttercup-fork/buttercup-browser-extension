@@ -15,6 +15,7 @@
  * New welcome page for the Codekunde fork, in English and Dutch: what the extension is, that it needs the desktop app (download link), how to connect, and the support address. It replaces upstream's "Welcome to V3" page and has a new ID, so existing users see it once too. The Dutch page no longer repeats its second paragraph
  * Merged the v3.3.0 release (the fork's identity and Firefox add-on ID, OTP search and copy, SSO badge, #473/#474/#485/#486/#488/#495/#499) into `master`; it had only been on its release branch. Dutch translations added for the strings v3.3.0 brought in (OTP search and copy, SSO badge, copy buttons, the desktop connection errors)
  * Popup, OTPs tab: OTPs for the current site come first, under a "This site" heading, with everything else under "Other OTPs" (no headings when there's only one group), like the Entries tab already does
+ * Popup: clicking an entry's icon opens its details (tooltip "Show entry properties"), replacing the separate "i" button, which frees room on the row. Clicking the rest of the row still opens the site
 
 ## v3.3.0
 _2026-09-17 - Codekunde fork - first Codekunde release_

@@ -151,7 +151,7 @@ export function EntryItem(props: EntryItemProps) {
             });
         }
     }, []);
-    // The whole row opens the entry's URL, so the icon and the text both say where it goes
+    // Clicking the row opens the entry's URL; in the toolbar popup the icon opens its details instead
     const openTooltip =
         popupSource === "popup" && entry.properties.url
             ? t("popup.entries.click.open-tooltip", { url: entry.properties.url })
@@ -159,12 +159,23 @@ export function EntryItem(props: EntryItemProps) {
     return (
         <Container isActive={false} onClick={handleEntryClick}>
             <EntryRow>
-                <EntryIconBackground title={openTooltip}>
-                    <EntryIcon
-                        domain={entryDomain}
-                        type={entry.entryType}
-                    />
-                </EntryIconBackground>
+                {popupSource === "popup" ? (
+                    <Tooltip2 content={t("popup.entries.info.tooltip")}>
+                        <EntryIconBackground onClick={handleEntryInfoClick}>
+                            <EntryIcon
+                                domain={entryDomain}
+                                type={entry.entryType}
+                            />
+                        </EntryIconBackground>
+                    </Tooltip2>
+                ) : (
+                    <EntryIconBackground>
+                        <EntryIcon
+                            domain={entryDomain}
+                            type={entry.entryType}
+                        />
+                    </EntryIconBackground>
+                )}
                 <DetailRow title={openTooltip}>
                     <Title title={entry.properties.title}>
                         <Text ellipsize>{entry.properties.title}</Text>
@@ -222,15 +233,6 @@ export function EntryItem(props: EntryItemProps) {
                                 icon="text-highlight"
                                 minimal
                                 onClick={handleEntryLoginClick}
-                            />
-                        </Tooltip2>
-                        <Tooltip2
-                            content={t("popup.entries.info.tooltip")}
-                        >
-                            <Button
-                                icon="info-sign"
-                                minimal
-                                onClick={handleEntryInfoClick}
                             />
                         </Tooltip2>
                     </ButtonGroup>
