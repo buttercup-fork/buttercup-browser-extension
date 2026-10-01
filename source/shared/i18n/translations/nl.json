@@ -183,6 +183,10 @@
             "search": {
                 "button": "Zoek OTPs",
                 "placeholder": "Zoeken..."
+            },
+            "sections": {
+                "other": "Overige OTP's",
+                "site": "Deze site"
             }
         },
         "tab": {

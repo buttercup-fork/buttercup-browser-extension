@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { Button, InputGroup, Intent, NonIdealState, Spinner } from "@blueprintjs/core";
 import { VaultSourceStatus } from "buttercup";
 import { t } from "../../../shared/i18n/trans.js";
-import { useDesktopConnectionState, useOTPs, useVaultSources } from "../../hooks/desktop.js";
+import { useDesktopConnectionState, useEntriesForURL, useOTPs, useVaultSources } from "../../hooks/desktop.js";
 import { OTPItemList } from "../otps/OTPItemList.js";
 import { LaunchContext } from "../contexts/LaunchContext.js";
 import { sendOTPToTabForInput } from "../../services/tab.js";
-import { usePreparedOTPs } from "../../hooks/otp.js";
+import { PreparedOTP, usePreparedOTPs } from "../../hooks/otp.js";
 import { DesktopConnectionState, OTP } from "../../types.js";
 import { getToaster } from "../../../shared/services/notifications.js";
 import { createNewTab } from "../../../shared/library/extension.js";
@@ -82,7 +82,8 @@ export function OTPsPage(props: OTPsPageProps) {
 }
 
 function OTPsPageList(props: OTPsPageProps) {
-    const { formID, source: popupSource } = useContext(LaunchContext);
+    const { formID, source: popupSource, url } = useContext(LaunchContext);
+    const urlEntries = useEntriesForURL(url);
     const sources = useVaultSources();
     const unlockedCount = useMemo(
         () => sources.reduce(
@@ -94,13 +95,23 @@ function OTPsPageList(props: OTPsPageProps) {
     const [otps, loadingOTPs] = useOTPs();
     const preparedOTPs = usePreparedOTPs(otps);
     const searchTerm = props.searchTerm.trim().toLowerCase();
-    const filteredOTPs = useMemo(() => {
-        if (!searchTerm) return preparedOTPs;
-        return preparedOTPs.filter(otp =>
-            (otp.otpTitle ?? "").toLowerCase().includes(searchTerm) ||
-            otp.entryTitle.toLowerCase().includes(searchTerm)
-        );
-    }, [preparedOTPs, searchTerm]);
+    const { otps: filteredOTPs, siteCount } = useMemo(() => {
+        const matching = searchTerm
+            ? preparedOTPs.filter(otp =>
+                (otp.otpTitle ?? "").toLowerCase().includes(searchTerm) ||
+                otp.entryTitle.toLowerCase().includes(searchTerm)
+            )
+            : preparedOTPs;
+        if (urlEntries.length === 0) return { otps: matching, siteCount: 0 };
+        // OTPs belonging to entries that match the current site go first
+        const isForSite = (otp: PreparedOTP) =>
+            urlEntries.some(entry => entry.id === otp.entryID && entry.sourceID === otp.sourceID);
+        const forSite = matching.filter(isForSite);
+        return {
+            otps: [...forSite, ...matching.filter(otp => !isForSite(otp))],
+            siteCount: forSite.length
+        };
+    }, [preparedOTPs, searchTerm, urlEntries]);
     const handleOTPClick = useCallback((otp: OTP) => {
         if (popupSource === "page" && formID) {
             sendOTPToTabForInput(formID, otp);
@@ -158,6 +169,7 @@ function OTPsPageList(props: OTPsPageProps) {
         <OTPItemList
             onOTPClick={handleOTPClick}
             otps={filteredOTPs}
+            siteCount={siteCount}
         />
     );
 }
