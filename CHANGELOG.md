@@ -19,6 +19,7 @@
  * Popup: entries that have an OTP get a "Copy OTP code" button on their row, next to copy username and password. Entries without an OTP are unchanged
  * **Bugfix** ([#304](https://github.com/buttercup/buttercup-browser-extension/issues/304)): no launch button (or its input styling) inside a rich-text editor's own interface (WordPress Gutenberg's writing area and popovers, the Classic Editor's TinyMCE toolbar). Adding it there could crash the editor or get undone when the editor redraws. Login and password fields elsewhere, including the rest of wp-admin, are unchanged
  * README and FORK.md: the Firefox add-on is published on addons.mozilla.org (linked), Chrome and Edge listings still to come. The README's badges are local SVGs instead of dead rawgit links, and the screenshots are new (mock data, current popup)
+ * Store listing assets for the Chrome and Edge submissions: `scripts/store-screenshots.py` turns the README screenshots into 1280x800 store images (into `release/screenshots/`, needs Pillow), and `images/promo-tile-440x280.png` is the small promo tile
 
 ## v3.3.0
 _2026-09-17 - Codekunde fork - first Codekunde release_
