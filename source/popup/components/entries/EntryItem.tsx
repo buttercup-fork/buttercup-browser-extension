@@ -151,22 +151,21 @@ export function EntryItem(props: EntryItemProps) {
             });
         }
     }, []);
+    // The whole row opens the entry's URL, so the icon and the text both say where it goes
+    const openTooltip =
+        popupSource === "popup" && entry.properties.url
+            ? t("popup.entries.click.open-tooltip", { url: entry.properties.url })
+            : undefined;
     return (
         <Container isActive={false} onClick={handleEntryClick}>
             <EntryRow>
-                <EntryIconBackground>
+                <EntryIconBackground title={openTooltip}>
                     <EntryIcon
                         domain={entryDomain}
                         type={entry.entryType}
                     />
                 </EntryIconBackground>
-                <DetailRow
-                    title={
-                        popupSource === "popup" && entry.properties.url
-                            ? t("popup.entries.click.open-tooltip", { url: entry.properties.url })
-                            : undefined
-                    }
-                >
+                <DetailRow title={openTooltip}>
                     <Title title={entry.properties.title}>
                         <Text ellipsize>{entry.properties.title}</Text>
                     </Title>
