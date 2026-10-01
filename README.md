@@ -1,6 +1,6 @@
 <h1 align="center">
   <br/>
-  <img src="https://cdn.rawgit.com/buttercup-pw/buttercup-assets/4bbfd317/badge/browsers.svg" alt="Buttercup for Browsers">
+  <img src="images/browsers.svg" alt="Buttercup for Browsers" width="120">
   <br/>
   <br/>
   <br/>
@@ -11,7 +11,7 @@ Buttercup credentials manager extension for the browser.
 
 <img src="images/b-b-e-entry.png" alt="Codekunde's Buttercup browser extension - entries list" width="400" />
 
-[![Buttercup](https://cdn.rawgit.com/buttercup-pw/buttercup-assets/6582a033/badge/buttercup-slim.svg)](https://buttercup.pw) [![Tests status](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml/badge.svg)](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml)
+[![Buttercup](images/buttercup-slim.svg)](https://buttercup.codekunde.net) [![Tests status](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml/badge.svg)](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml)
 
 ---
 
@@ -27,7 +27,7 @@ This is an independent fork of the original [Buttercup browser extension](https:
 
 This fork is not affiliated with, endorsed by, or supported by the original Buttercup maintainers. It has not yet undergone an independent security audit (this line will be removed once/if one happens).
 
-Releases, version tags and (eventual) store listings originate from Codekunde and are not continuations of the upstream project's releases. See [FORK.md](FORK.md) for maintenance notes: extension identity, the self-generated Firefox add-on ID, store-listing status and dependency strategy. **There are no Codekunde Chrome/Edge/Firefox store listings yet** — this extension is currently installed as an unpacked/development build only (see [Development](#development) below).
+Releases, version tags and (eventual) store listings originate from Codekunde and are not continuations of the upstream project's releases. See [FORK.md](FORK.md) for maintenance notes: extension identity, the self-generated Firefox add-on ID, store-listing status and dependency strategy. **Firefox:** [Buttercup (Codekunde) on Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/buttercup-codekunde/). **There are no Codekunde Chrome/Edge store listings yet** — on those browsers the extension is currently installed as an unpacked/development build only (see [Development](#development) below).
 
 Questions or support requests for this fork: **support@codekunde.net**.
 
@@ -46,7 +46,7 @@ Buttercup for Browsers auto-detects some login forms and login inputs, allowing 
 
 ### Supported browsers
 
-Chrome, Firefox, Edge (version 79+) and Brave (Chromium-based, loads the same build as Chrome) are supported. There is no published store listing for this fork yet on any of them — see [Development](#development) below for building and loading the extension yourself.
+Chrome, Firefox, Edge (version 79+) and Brave (Chromium-based, loads the same build as Chrome) are supported. Firefox users can install from the [Firefox Add-ons listing](https://addons.mozilla.org/en-US/firefox/addon/buttercup-codekunde/). There is no published store listing for this fork yet on Chrome, Edge or Brave — see [Development](#development) below for building and loading the extension yourself.
 
 Other browsers will be supported in order of request/popularity.
 
