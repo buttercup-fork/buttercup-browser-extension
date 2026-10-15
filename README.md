@@ -11,7 +11,7 @@ Buttercup credentials manager extension for the browser.
 
 <img src="images/b-b-e-entry.png" alt="Codekunde's Buttercup browser extension - entries list" width="400" />
 
-[![Buttercup](images/buttercup-slim.svg)](https://buttercup.codekunde.net) [![Tests status](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml/badge.svg)](https://github.com/codekunde/buttercup-browser-extension/actions/workflows/test.yml)
+[![Buttercup](images/buttercup-slim.svg)](https://buttercup.codekunde.net) [![Tests status](https://github.com/buttercup-fork/buttercup-browser-extension/actions/workflows/test.yml/badge.svg)](https://github.com/buttercup-fork/buttercup-browser-extension/actions/workflows/test.yml)
 
 ---
 
@@ -23,7 +23,7 @@ The original Buttercup project has come to an end, and its repositories are arch
 
 ℹ️ **About this fork**
 
-This is an independent fork of the original [Buttercup browser extension](https://github.com/buttercup/buttercup-browser-extension), archived by its maintainers, now maintained by **Codekunde** to rebuild, modernize and keep the extension working alongside our [buttercup-desktop fork](https://github.com/codekunde/buttercup-desktop).
+This is an independent fork of the original [Buttercup browser extension](https://github.com/buttercup/buttercup-browser-extension), archived by its maintainers, now maintained by **Codekunde** to rebuild, modernize and keep the extension working alongside our [buttercup-desktop fork](https://github.com/buttercup-fork/buttercup-desktop).
 
 This fork is not affiliated with, endorsed by, or supported by the original Buttercup maintainers. It has not yet undergone an independent security audit (this line will be removed once/if one happens).
 
@@ -42,7 +42,7 @@ The extension makes secured requests to the desktop application for information 
 
 ### Forms & Logins
 
-Buttercup for Browsers auto-detects some login forms and login inputs, allowing the user to auto-fill them at their discretion. This extension uses [Locust](https://github.com/buttercup/locust) under the hood to **detect forms and inputs**. Codekunde maintains a mirror at [codekunde/locust](https://github.com/codekunde/locust); the extension currently depends on the published `@buttercup/locust` npm release.
+Buttercup for Browsers auto-detects some login forms and login inputs, allowing the user to auto-fill them at their discretion. This extension uses [Locust](https://github.com/buttercup/locust) under the hood to **detect forms and inputs**. Codekunde maintains its own fork at [buttercup-fork/locust](https://github.com/buttercup-fork/locust), which the extension installs straight from GitHub.
 
 ### Supported browsers
 
@@ -78,7 +78,7 @@ You can **block** Buttercup from detecting forms and inputs by applying the attr
 
 Development of features and bugfixes is supported in the following environment:
 
- * NodeJS version 20.10+ (20 / 22 / 24 all work)
+ * NodeJS version 22 or greater
  * Windows, Linux or Mac
  * Tested in at least Chrome / Firefox
 
