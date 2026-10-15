@@ -30,7 +30,7 @@ routing through any intermediary, self-hosted or not.
 | Field | Value | Where |
 | --- | --- | --- |
 | Display name | `Buttercup (Codekunde)` | `resources/manifest.v2.json`, `resources/manifest.v3.json` |
-| Homepage | `https://github.com/codekunde/buttercup-browser-extension` | both manifests |
+| Homepage | `https://github.com/buttercup-fork/buttercup-browser-extension` | both manifests |
 | Firefox add-on ID | `{245ac273-f695-41d0-836f-ffe171c92cce}` | `resources/manifest.v2.json` → `browser_specific_settings.gecko.id` |
 
 The Firefox ID was generated fresh for this fork. There is **no upstream
@@ -55,16 +55,14 @@ reused here. The AMO listing is a brand-new listing under the ID above.
 
 ## Dependency strategy
 
-- **buttercup-core**: consumed from `github:codekunde/buttercup-core` pinned to
-  commit `a73517c85dc7b21a4fc26fcd55f5aaed902f6075` (our fork's `master` as of
-  2026-09-16 - "Fixes batch 1"). No Codekunde release tag exists yet on that
-  repo; re-pin to a tag once one is cut.
-- **@buttercup/locust**: still consumed from the published npm release, pinned
-  to exact `2.3.1`. A preservation mirror lives at
-  [codekunde/locust](https://github.com/codekunde/locust). Only switch the
-  dependency to the fork when we actually need to patch form detection — at
-  which point the fork needs a `prepare` build script (its npm package ships
-  `dist/` only) or a republish under a Codekunde npm scope.
+- **buttercup-core**: consumed from
+  [buttercup-fork/buttercup-core](https://github.com/buttercup-fork/buttercup-core),
+  pinned to an exact commit in `package.json`. No release tag exists on that
+  repo yet; re-pin to the npm package `@buttercup-fork/core` once it is published.
+- **@buttercup/locust**: consumed from our fork,
+  [buttercup-fork/locust](https://github.com/buttercup-fork/locust), pinned to
+  an exact commit. The fork has a `prepare` build script, so the install builds
+  it (the upstream npm package ships `dist/` only).
 
 ## Toolchain
 
